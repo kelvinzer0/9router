@@ -1,5 +1,5 @@
 [package]
-name = "bayurahma/9router"
+name = "bayurahma/router9"
 version = "0.5.104"
 description = "9Router - AI Router & Token Saver on Wasmer Edge"
 license = "MIT"

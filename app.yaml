@@ -1,5 +1,5 @@
 ---
 kind: wasmer.io/App.v0
-name: 9router
+name: router9
 owner: bayurahma
 package: .

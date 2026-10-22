@@ -14,7 +14,7 @@ on:
       app_name:
         description: 'Wasmer App Name'
         required: false
-        default: '9router'
+        default: 'router9'
 
 concurrency:
   group: wasmer-deploy-${{ github.ref }}
@@ -43,7 +43,7 @@ jobs:
           wasmer deploy \
             --token="${WASMER_TOKEN}" \
             --owner="${WASMER_OWNER:-bayurahma}" \
-            --app-name="${{ github.event.inputs.app_name || '9router' }}" \
+            --app-name="${{ github.event.inputs.app_name || 'router9' }}" \
             --non-interactive \
             --no-wait \
             --no-persist-id
