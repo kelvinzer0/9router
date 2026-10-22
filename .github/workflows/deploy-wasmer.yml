@@ -8,6 +8,7 @@ on:
     paths:
       - 'wasmer.toml'
       - 'app.yaml'
+      - 'public/**'
       - '.github/workflows/deploy-wasmer.yml'
   workflow_dispatch:
     inputs:
@@ -44,6 +45,7 @@ jobs:
             --token="${WASMER_TOKEN}" \
             --owner="${WASMER_OWNER:-bayurahma}" \
             --app-name="${{ github.event.inputs.app_name || 'router9' }}" \
+            --bump \
             --non-interactive \
             --no-wait \
             --no-persist-id
