@@ -1,0 +1,49 @@
+name: Deploy 9Router to Wasmer Edge
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - 'wasmer.toml'
+      - 'app.yaml'
+      - '.github/workflows/deploy-wasmer.yml'
+  workflow_dispatch:
+    inputs:
+      app_name:
+        description: 'Wasmer App Name'
+        required: false
+        default: '9router'
+
+concurrency:
+  group: wasmer-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy to Wasmer Edge (Bayu Rahma)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Wasmer CLI
+        uses: wasmerio/setup-wasmer@v3
+
+      - name: Validate Wasmer Configuration
+        run: |
+          wasmer --version
+
+      - name: Deploy to Wasmer Edge
+        env:
+          WASMER_TOKEN: ${{ secrets.WASMER_TOKEN }}
+          WASMER_OWNER: ${{ secrets.WASMER_OWNER }}
+        run: |
+          wasmer deploy \
+            --token="${WASMER_TOKEN}" \
+            --owner="${WASMER_OWNER:-bayurahma}" \
+            --app-name="${{ github.event.inputs.app_name || '9router' }}" \
+            --non-interactive \
+            --no-wait \
+            --no-persist-id
